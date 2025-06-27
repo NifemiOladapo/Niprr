@@ -1,10 +1,9 @@
-
 const layout = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <div>
-            {children}
-        </div>
-    )
-}
+  return (
+    <html>
+      <body>{children}</body>
+    </html>
+  );
+};
 
-export default layout
+export default layout;
