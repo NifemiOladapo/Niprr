@@ -4,8 +4,7 @@ import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrls";
 
 const ProductThumbnail = ({ product }: { product: Product }) => {
-  const isOutOfStock = product.stock !== null && product.stock <= 0;
-  console.log(product.description);
+  const isOutOfStock = product.stock !== undefined   && product.stock <= 0;
 
   return (
     <Link

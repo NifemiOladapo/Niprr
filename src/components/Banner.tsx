@@ -6,7 +6,7 @@ const Banner = async () => {
     return null;
   }
   return (
-    <div className="bg-gradient-to-r from-red-600 to-black text-white px-6 py-10 mx-4 mt-2 rounded-lg shadow-lg w-full">
+    <div className="bg-gradient-to-r from-red-600 to-black text-white px-6 py-10 mx-4 mt-2 mb-4 rounded-lg shadow-lg w-full">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex-1">
           <h2 className="text-3xl font-extrabold mb-4 text-left sm:text-5xl">

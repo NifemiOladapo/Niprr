@@ -4,7 +4,7 @@ import { searchProductByName } from "@/sanity/lib/products/searchProductByName";
 const SearchPage = async ({
   searchParams,
 }: {
-  searchParams: { query: string };
+  searchParams: Promise<{ query: string }>;
 }) => {
   const { query } = await searchParams;
   const products = await searchProductByName(query);
@@ -30,7 +30,7 @@ const SearchPage = async ({
         <h1 className="text-3xl font-bold text-center mb-6">
           Products found for: {query}
         </h1>
-        <ProductGrid products={products}/>
+        <ProductGrid products={products} />
       </div>
     </div>
   );
