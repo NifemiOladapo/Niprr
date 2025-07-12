@@ -14,11 +14,11 @@ const ProductThumbnail = ({ product }: { product: Product }) => {
       <div className="relative w-full h-full overflow-hidden aspect-square">
         {product.image && (
           <Image
-            className="object-contain transition-transform duration-300 group-hover:scale-125"
+            className="object-contain transition-transform duration-300 group-hover:scale-110"
             src={imageUrl(product.image).url()}
-            alt={product.name || "Product iamge"}
+            alt={product.name || "Product image"}
             fill
-            sizes="(max-width:768px) 100vw, (max-width: 120px) 50 vw, 33vw"
+            sizes="(max-width:768px) 100vw, (max-width: 120px) 50vw, 33vw"
           />
         )}
         {isOutOfStock && (
