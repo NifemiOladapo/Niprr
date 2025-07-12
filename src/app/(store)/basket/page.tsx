@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  createCheckoutSession,
+  Metadata,
+} from "@/actions/createCheckoutSession";
 import AddToBasket from "@/components/AddToBasket";
 import Loader from "@/components/Loader";
 import { imageUrl } from "@/lib/imageUrls";
@@ -21,23 +25,30 @@ const BasketPage = () => {
 
   useEffect(() => {
     setClient(true);
-  });
+  }, []);
 
   if (!client) {
     return <Loader />;
   }
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!isSignedIn) return;
     setisLoading(true);
+
     try {
-      const metadata = {
+      const metadata: Metadata = {
         orderNumber: crypto.randomUUID(),
         customerName: user?.fullName ?? "Unknown",
-        customerEmail: user?.emailAddresses[0] ?? "Unknown",
+        customerEmail: user?.emailAddresses[0].emailAddress ?? "Unknown",
         clerkUserId: user!.id,
       };
+
+      const checkoutUrl = await createCheckoutSession(groupedItems, metadata);
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      }
     } catch (err) {
+      console.error("Error creating scheckout session", err);
     } finally {
       setisLoading(false);
     }
@@ -64,7 +75,7 @@ const BasketPage = () => {
               <div
                 className="flex items-center cursor-pointer flex-1 min-w-0"
                 onClick={() =>
-                  router.push(`/products/${item.product.slug?.current}`)
+                  router.push(`/product/${item.product.slug?.current}`)
                 }
               >
                 <div className="w-20 h-20 flex-shrink-0 mr-4 sm:w-24 sm:h-24">
@@ -111,7 +122,7 @@ const BasketPage = () => {
             </p>
           </div>
           {isSignedIn ? (
-            <button onClick={handleCheckout} disabled={isLoading}>
+            <button onClick={handleCheckout} className="bg-blue-500 w-full text-white p-3 mt-3 text-lg font-semibold cursor-pointer hover:bg-blue-700" disabled={isLoading}>
               {isLoading ? "Processing..." : "Checkout"}
             </button>
           ) : (

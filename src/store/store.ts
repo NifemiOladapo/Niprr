@@ -55,7 +55,7 @@ export const useBasketStore = create<BasketState>()(
       clearBasket: () => set({ items: [] }),
       getTotalPrice: () => {
         return get().items.reduce(
-          (total, item) => total + (item.product.price ?? 0) + item.quantity,
+          (total, item) => total + (item.product.price ?? 0) * item.quantity,
           0
         );
       },

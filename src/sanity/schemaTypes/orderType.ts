@@ -1,5 +1,5 @@
 import { BasketIcon } from "@sanity/icons";
-import { defineArrayMember, defineField, defineType, Preview } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const orderType = defineType({
   name: "order",
