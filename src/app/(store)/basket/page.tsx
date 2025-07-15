@@ -44,10 +44,12 @@ const BasketPage = () => {
       };
 
       const checkoutUrl = await createCheckoutSession(groupedItems, metadata);
+      console.log("checkoutUrl:", checkoutUrl);
+      
       if (checkoutUrl) {
         window.location.href = checkoutUrl;
       }
-    } catch (err) {
+    } catch (err) {  
       console.error("Error creating scheckout session", err);
     } finally {
       setisLoading(false);

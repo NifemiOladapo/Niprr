@@ -119,6 +119,12 @@ export const orderType = defineType({
       type: "datetime",
       validation: (Rule) => Rule.required(),
     }),
+      defineField({
+      name: "clerkUserId",
+      title: "User Id",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
   ],
   preview: {
     select: {

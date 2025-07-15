@@ -10,7 +10,6 @@ export interface Metadata {
     customerEmail: string;
     clerkUserId: string
 }
-
 export interface GroupedBasketItem {
     product: Product,
     quantity: number
@@ -37,7 +36,8 @@ export const createCheckoutSession = async (items: GroupedBasketItem[], metadata
             success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_iD}&orderNumber=${metadata.orderNumber}`,
             cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/basket`,
             line_items: items.map(item => ({
-                quantity: item.quantity, price_data: {
+                quantity: item.quantity,
+                price_data: {
                     currency: "usd", unit_amount: Math.round(item.product.price! * 100), product_data: {
                         name: item.product.name || "Unnamed Product",
                         description: `Produt ID: ${item.product._id}`,
@@ -50,5 +50,6 @@ export const createCheckoutSession = async (items: GroupedBasketItem[], metadata
         return session.url
     } catch (error) {
         console.error("Error creating checkout session", error)
+        throw error;
     }
 }
