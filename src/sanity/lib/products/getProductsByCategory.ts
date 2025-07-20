@@ -3,7 +3,7 @@ import { sanityFetch } from "../live";
 
 export const getProductsByCategory = async (categorySlug: string) => {
   const PRODUCTS__BY__CATEGORY__QUERY = defineQuery(`
-    *[_type == "product" && references(*[_type == "category" && slug.current match $categorySlug]._id)] | order(name asc) `);
+    *[_type == "product" && references(*[_type == "category" && slug.current == $categorySlug]._id)] | order(name asc) `);
   try {
     const products = await sanityFetch({
       query: PRODUCTS__BY__CATEGORY__QUERY,
