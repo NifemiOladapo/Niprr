@@ -5,6 +5,9 @@ import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-static";
+export const revalidate = 3600;
+
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   const product = await getProductBySlug(slug);

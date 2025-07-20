@@ -58,6 +58,8 @@ const createOrderInSanity = async (session: Stripe.Checkout.Session) => {
     total_details,
   } = session;
   const { orderNumber, customerName, customerEmail, clerkUserId } =
+    // @ts-expect-error could not yet fiure out error cause
+
     metadata as Metadata;
   const lineItemsWithProduct = await stripe.checkout.sessions.listLineItems(
     id,
