@@ -8,7 +8,7 @@ export const searchProductByName = async (searchParam: string) => {
     const products = await sanityFetch({
       query: SEARCH__PRODUCTS__BY__NAME__QUERY,
       params : {
-        searchParam : `${searchParam}*`
+        searchParam : `*${searchParam}*`
       }
     });
     return products.data || [];
