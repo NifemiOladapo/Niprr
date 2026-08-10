@@ -45,11 +45,11 @@ const BasketPage = () => {
 
       const checkoutUrl = await createCheckoutSession(groupedItems, metadata);
       console.log("checkoutUrl:", checkoutUrl);
-      
+
       if (checkoutUrl) {
         window.location.href = checkoutUrl;
       }
-    } catch (err) {  
+    } catch (err) {
       console.error("Error creating scheckout session", err);
     } finally {
       setisLoading(false);
@@ -96,7 +96,7 @@ const BasketPage = () => {
                     {item.product.name}
                   </h2>
                   <p className="text-sm sm:text-base">
-                    Price : $
+                    Price : &#8358;
                     {((item.product.price ?? 0) * item.quantity).toFixed(2)}
                   </p>
                 </div>
@@ -119,12 +119,16 @@ const BasketPage = () => {
             <p className="flex justify-between text-2xl font-bold border-t pt-2">
               <span>Total:</span>
               <span>
-                ${useBasketStore.getState().getTotalPrice().toFixed(2)}
+                NGN {useBasketStore.getState().getTotalPrice().toFixed(2)}
               </span>
             </p>
           </div>
           {isSignedIn ? (
-            <button onClick={handleCheckout} className="bg-blue-500 w-full text-white p-3 mt-3 text-lg font-semibold cursor-pointer hover:bg-blue-700" disabled={isLoading}>
+            <button
+              onClick={handleCheckout}
+              className="bg-blue-500 w-full text-white p-3 mt-3 text-lg font-semibold cursor-pointer hover:bg-blue-700"
+              disabled={isLoading}
+            >
               {isLoading ? "Processing..." : "Checkout"}
             </button>
           ) : (

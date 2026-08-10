@@ -41,14 +41,14 @@
         },
         "optional": true
       },
-      "stripeCheckoutSessionId": {
+      "paystackReference": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
         "optional": true
       },
-      "stripeCustomerId": {
+      "paystackCustomerCode": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
@@ -69,10 +69,10 @@
         },
         "optional": true
       },
-      "stripePaymentIntentId": {
+      "paystackTransactionId": {
         "type": "objectAttribute",
         "value": {
-          "type": "string"
+          "type": "number"
         },
         "optional": true
       },

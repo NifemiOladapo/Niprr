@@ -14,15 +14,15 @@ export const orderType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "stripeCheckoutSessionId",
-      title: "Stripe Checkout Session ID",
-      type: "string",
-    }),
-    defineField({
-      name: "stripeCustomerId",
-      title: "Stripe Customer ID",
+      name: "paystackReference",
+      title: "Paystack Reference",
       type: "string",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "paystackCustomerCode",
+      title: "Paystack Customer Code",
+      type: "string",
     }),
     defineField({
       name: "customerName",
@@ -37,9 +37,9 @@ export const orderType = defineType({
       validation: (Rule) => Rule.required().email(),
     }),
     defineField({
-      name: "stripePaymentIntentId",
-      title: "Stripe Payment Intent ID",
-      type: "string",
+      name: "paystackTransactionId",
+      title: "Paystack Transaction ID",
+      type: "number",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -119,7 +119,7 @@ export const orderType = defineType({
       type: "datetime",
       validation: (Rule) => Rule.required(),
     }),
-      defineField({
+    defineField({
       name: "clerkUserId",
       title: "User Id",
       type: "string",

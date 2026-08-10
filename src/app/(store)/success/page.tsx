@@ -4,15 +4,84 @@ import { Button } from "@/components/ui/button";
 import { useBasketStore } from "@/store/store";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+type VerificationState = "loading" | "success" | "failed";
 
 const SuccessPage = () => {
   const searchParams = useSearchParams();
   const orderNumber = searchParams.get("orderNumber");
+  const reference = searchParams.get("reference");
   const clearBasket = useBasketStore((state) => state.clearBasket);
+  const [state, setState] = useState<VerificationState>("loading");
+
   useEffect(() => {
-    if (orderNumber) clearBasket();
-  }, [orderNumber, clearBasket]);
+    console.log(reference, "thats refer value");
+    if (!reference) {
+      setState("failed");
+      return;
+    }
+
+    let cancelled = false;
+
+    const verify = async () => {
+      try {
+        const res = await fetch(
+          `/api/paystack/verify?reference=${encodeURIComponent(reference)}`,
+        );
+        const data = await res.json();
+        if (!cancelled) {
+          if (data.status === "success") {
+            setState("success");
+            clearBasket();
+          } else {
+            setState("failed");
+          }
+        }
+      } catch (err) {
+        console.error("Error verifying transaction", err);
+        if (!cancelled) setState("failed");
+      }
+    };
+
+    verify();
+    return () => {
+      cancelled = true;
+    };
+  }, [reference, clearBasket]);
+
+  if (state === "loading") {
+    return (
+      <div className="p-4 flex flex-col items-center justify-center min-h-screen bg-gray-50">
+        <p className="text-gray-600">Confirming your payment...</p>
+      </div>
+    );
+  }
+
+  if (state === "failed") {
+    return (
+      <div className="p-4 flex flex-col items-center justify-center min-h-screen bg-gray-50">
+        <div className="bg-white p-12 rounded-xl shadow-lg max-w-2xl w-full mx-4 text-center">
+          <h1 className="text-xl font-bold mb-4">
+            We couldn't confirm your payment
+          </h1>
+          <p className="text-gray-600 mb-6">
+            If you completed payment, it may still be processing — check your
+            order history in a few minutes. Otherwise, nothing was charged.
+          </p>
+          <div className="flex flex-col gap-4 justify-center sm:flex-row">
+            <Button asChild variant={"outline"}>
+              <Link href={"/basket"}>Return to Basket</Link>
+            </Button>
+            <Button asChild variant={"outline"}>
+              <Link href={"/orders"}>View Orders</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-4 flex flex-col items-center justify-center min-h-screen bg-gray-50">
       <div className="bg-white p-12 rounded-xl shadow-lg max-w-2xl w-full mx-4">
@@ -61,9 +130,9 @@ const SuccessPage = () => {
             <Button asChild className="bg-green-600 hover:bg-green-700">
               <Link href={"/orders"}>View Order Detail</Link>
             </Button>
-            <Button asChild variant={"outline"}>
+            {/* <Button asChild variant={"outline"}>
               <Link href={"/"}>Continue Shipping</Link>
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

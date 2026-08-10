@@ -20,11 +20,11 @@ export type Order = {
   _updatedAt: string;
   _rev: string;
   orderNumber?: string;
-  stripeCheckoutSessionId?: string;
-  stripeCustomerId?: string;
+  paystackReference?: string;
+  paystackCustomerCode?: string;
   customerName?: string;
   email?: string;
-  stripePaymentIntentId?: string;
+  paystackTransactionId?: number;
   products?: Array<{
     product?: {
       _ref: string;
@@ -293,11 +293,11 @@ export type MY__ORDERS__QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   orderNumber?: string;
-  stripeCheckoutSessionId?: string;
-  stripeCustomerId?: string;
+  paystackReference?: string;
+  paystackCustomerCode?: string;
   customerName?: string;
   email?: string;
-  stripePaymentIntentId?: string;
+  paystackTransactionId?: number;
   products: Array<{
     product: {
       _id: string;

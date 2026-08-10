@@ -42,7 +42,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
           <div>
             <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
             <div className="text-xl font-semibold mb-4">
-              ${product.price?.toFixed(2)}
+              &#8358;{product.price?.toFixed(2)}
             </div>
             <div className="prose max-w-none mb-6">
               {Array.isArray(product.description) && (
