@@ -46,6 +46,7 @@ const Header = () => {
           className="bg-gray-100 text-gray-800 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border w-full max-w-4xl"
         />
       </Form>
+      
       <div className="space-x-4 mt-3.5 md:mt-0 items-center flex flex-wrap justify-center lg:space-y-0 space-y-1.5 ">
         <Link
           href="/basket"
