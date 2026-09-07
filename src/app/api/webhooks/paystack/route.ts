@@ -92,7 +92,8 @@ const createOrderInSanity = async (reference: string) => {
   const metadata: CartMetadata =
     typeof rawMetadata === "string"
       ? JSON.parse(rawMetadata)
-      : (rawMetadata as CartMetadata);
+      : // : (rawMetadata as CartMetadata);
+        rawMetadata;
 
   const { orderNumber, customerName, customerEmail, clerkUserId, items } =
     metadata;
